@@ -25,8 +25,15 @@ function login() {
   })
     .then((res) => res.json()) // json으로 읽는다.
     .then((res) => {
-
-    });
+      if(res.success) {
+        location.href = "/";
+      }else {
+        alert(res.msg);
+      };
+    })
+    .catch((err) => {
+      console.error(new Error("로그인 중 발생"));
+    })
     //.then(console.log); // = .then((res) => console.log(res)); => 파라미터가 같고, 함수의 파라미터인 경우 생략 가능 // promise 형태
 }
   // res.json() 반환값은 Promise

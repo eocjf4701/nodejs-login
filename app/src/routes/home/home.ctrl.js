@@ -4,6 +4,7 @@ const users = {
   id: ["daechul", "sohee", "together"],
   psword: ["1", "12", "123"],
 }
+
 const show = {
   home: (req, res) => {
     res.render("home/index");
