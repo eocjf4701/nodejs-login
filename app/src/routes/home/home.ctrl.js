@@ -1,18 +1,6 @@
 "use strict";
 
-const users = {
-  id: ["daechul", "sohee", "together"],
-  psword: ["1", "12", "123"],
-}
-
-const show = {
-  home: (req, res) => {
-    res.render("home/index");
-  },
-  login: (req, res) => {
-    res.render("home/login");
-  },
-};
+const UserStorage = require("../../models/UserStorage");
 
 const process = {
   login: (req, res) => {
@@ -20,21 +8,37 @@ const process = {
     const id = req.body.id,
       psword = req.body.psword;
 
-    console.log(id, psword);
+    /*
+      class 접근방법
+      1) new 인스턴스화
+      2) class static으로 처리 후 선언
+    */
+    //const userStorage = new UserStorage();
+    //const userStorage = UserStorage.users;
+    //console.log(UserStorage.getUser("id", "psword", "name"));
+    const users = UserStorage.getUser("id", "psword", "name");
+    // console.log(id, psword);
+     const response = {};
     if (users.id.includes(id)) {
       const idx = users.id.indexOf(id);
       console.log(idx);
       if(users.psword[idx] === psword) {
-       return res.json({
-         success: true,
-       }); 
+        response.success = true;
+        return res.json(response); 
       }
     }
+    response.sucess = false;
+    response.msg = "로그인에 실패하셨습니다.";
+    return res.json(response);
+  },
+};
 
-    return res.json({
-      success: false,
-      msg: "로그인에 실패하셨습니다.",
-    })
+const show = {
+  home: (req, res) => {
+    res.render("home/index");
+  },
+  login: (req, res) => {
+    res.render("home/login");
   },
 };
 
