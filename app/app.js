@@ -1,5 +1,10 @@
 "use strict";
 
+/*
+  main : app.js : node 기본설정
+  bin > : 서버실행파일
+  src > : mvc패턴별로 파일분류
+*/
 // 모듈
 const express = require("express");
 const bodyParser = require("body-parser");
