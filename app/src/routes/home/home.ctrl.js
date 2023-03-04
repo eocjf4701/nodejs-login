@@ -8,9 +8,9 @@ const process = {
       1) new 인스턴스화
       2) class static으로 처리 후 선언
     */
-  login: (req, res) => {
+  login: async (req, res) => {
     const user = new User(req.body);
-    const response = user.login();
+    const response = await user.login();
     
     return res.json(response);
   },
