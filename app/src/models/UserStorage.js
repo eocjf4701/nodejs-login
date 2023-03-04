@@ -1,5 +1,7 @@
 "use strict";
 
+const fs = require("fs");
+
 class UserStorage {
   // class안에서는 변수선언시 변수타입 선언 필요없음.
   // #선언하면 public -> private
@@ -34,6 +36,15 @@ class UserStorage {
     }, {});
     
     return userInfo;
+  }
+
+  static save(userInfo) {
+    const users = this.#users;
+    users.id.push(userInfo.id);
+    users.psword.push(userInfo.psword);
+    users.name.push(userInfo.name);
+    
+    return { success: true};
   }
 }
 
