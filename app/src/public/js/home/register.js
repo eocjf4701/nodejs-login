@@ -20,7 +20,6 @@ function register() {
     psword: password.value,
     
   };
-  console.log(req);
   // form 태그 안에 button을 submit 되버림.
 
   fetch("/register", {
@@ -39,7 +38,7 @@ function register() {
       };
     })
     .catch((err) => {
-      console.error(new Error("로그인 중 발생"));
+      console.error(new Error("회원가입 중 에러발생"));
     })
     .then(console.log); // = .then((res) => console.log(res)); => 파라미터가 같고, 함수의 파라미터인 경우 생략 가능 // promise 형태
 }
