@@ -2,7 +2,7 @@
 
 const { throws } = require('assert');
 
-const fs = require("fs").promises;
+const db = require("../config/db");
 
 class UserStorage {
   // class안에서는 변수선언시 변수타입 선언 필요없음.
@@ -37,34 +37,20 @@ class UserStorage {
   }
 
   static getUser(isAll, ...fields) {
-    return fs
-      .readFile("./src/databases/users.json")
-      .then((data) => {
-        return this.#getUsers(data, isAll, fields);
-      })
-      .catch(console.error);
+
   }
 
   static getUserInfo(id) {
-    return fs
-      .readFile("./src/databases/users.json")
-      .then((data) => {
-        return this.#getUserInfo(data, id);
-      })
-      .catch(console.error);
+    return new Promise((resolove, reject) => {
+      db.query("SELECT * FROM users where id = ?", [id], (err, data) => {
+        if (err) reject(err);
+        resolove(data[0]);
+      });
+    });
   }
 
   static async save(userInfo) {
-    const users = await this.getUser(true);
-    if (users.id.includes(userInfo.id)) {
-      throw "이미 존재하는 아이디입니다.";
-    }
-      users.id.push(userInfo.id);
-      users.name.push(userInfo.name);
-      users.psword.push(userInfo.psword);
-      // 데이터추가
-      fs.writeFile("./src/databases/users.json", JSON.stringify(users));
-      return { success: true };
+
   }
 }
 
